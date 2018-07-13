@@ -1,6 +1,7 @@
 package codesquad.util;
 
 import codesquad.domain.User;
+import codesquad.exception.ApiException;
 import codesquad.exception.UnAuthorizedUserException;
 import codesquad.exception.UnidentifiedUserException;
 
@@ -39,6 +40,11 @@ public class SessionUtils {
     public void checkLogin(HttpSession session) throws UnidentifiedUserException {
         if (getUserFromSession(session) == null) {
             throw new UnidentifiedUserException();
+        }
+    }
+    public void checkLogin2(HttpSession session) throws ApiException {
+        if (getUserFromSession(session) == null) {
+            throw new ApiException();
         }
     }
 }

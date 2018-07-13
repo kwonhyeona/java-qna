@@ -2,6 +2,7 @@ package codesquad.domain;
 
 import codesquad.util.DateUtils;
 import codesquad.util.SessionUtils;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.servlet.http.HttpSession;
@@ -107,5 +108,17 @@ public class Answer {
     public boolean isDeletable(User loginUser) {
         SessionUtils.getInstance().checkSameUser(loginUser, getWriterId());
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Answer{" +
+                "id=" + id +
+                ", time='" + time + '\'' +
+                ", contents='" + contents + '\'' +
+                ", deleted=" + deleted +
+                ", writer=" + writer +
+                ", question=" + question +
+                '}';
     }
 }

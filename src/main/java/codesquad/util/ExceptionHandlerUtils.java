@@ -1,5 +1,7 @@
 package codesquad.util;
 
+import codesquad.domain.result.Result;
+import codesquad.exception.ApiException;
 import codesquad.exception.UnAuthorizedUserException;
 import codesquad.exception.UnDeletableQuestionException;
 import codesquad.exception.UnidentifiedUserException;
@@ -22,4 +24,5 @@ public class ExceptionHandlerUtils {
     public String unDeletableQuestionExceptionHandler() {
         return "/error/error";
     }
+
 }
