@@ -1,9 +1,10 @@
 package codesquad.web;
 
 import codesquad.domain.*;
-import codesquad.domain.result.Result;
+import codesquad.domain.result.AnswerResult;
 import codesquad.util.SessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -16,17 +17,29 @@ public class ApiAnswerController {
     @Autowired
     private AnswerRepository answerRepository;
 
+    private SessionUtils utils = SessionUtils.getInstance();
+
     @PostMapping("/questions/{questionId}/answers")
-    public Result create(@PathVariable Long questionId, @RequestBody Answer target, HttpSession session) {
-        SessionUtils.getInstance().checkLogin2(session);
-        User user = SessionUtils.getInstance().getUserFromSession(session);
+    public AnswerResult create(@PathVariable Long questionId, @RequestBody Answer target, HttpSession session) {
+        utils.checkLogin2(session);
+        User user = utils.getUserFromSession(session);
         Question question = questionRepository.findById(questionId).orElseThrow(NullPointerException::new);
         Answer answer = new Answer(user, target.getContents());
         System.out.println("\n\n\n\n\n\n\n" + target.toString());
         answer.update(user, question);
         question.addAnswers(answer);
         answerRepository.save(answer);
-        return (new Result()).ok(answer);
+        return (new AnswerResult()).ok(answer);
     }
 
+    @Transactional
+    @DeleteMapping("/questions/{questionId}/answers/{id}")
+    public AnswerResult delete(@PathVariable Long questionId, @PathVariable Long id, HttpSession session) {
+        // answer의 deleted 를 true로
+        utils.checkLogin2(session);
+        Answer answer = answerRepository.findById(id).orElseThrow(NullPointerException::new);
+        answer.delete2(utils.getUserFromSession(session));
+        answerRepository.save(answer);
+        return new AnswerResult().ok(answer);
+    }
 }

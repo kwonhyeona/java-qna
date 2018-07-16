@@ -2,11 +2,8 @@ package codesquad.domain;
 
 import codesquad.util.DateUtils;
 import codesquad.util.SessionUtils;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
 @Entity
 public class Answer {
@@ -101,12 +98,22 @@ public class Answer {
         delete();
     }
 
+    public void delete2(User loginUser) {
+        if(!isDeletable2(loginUser)) return;
+        delete();
+    }
+
     public void delete() {
         this.deleted = true;
     }
 
     public boolean isDeletable(User loginUser) {
         SessionUtils.getInstance().checkSameUser(loginUser, getWriterId());
+        return true;
+    }
+
+    public boolean isDeletable2(User loginUser) {
+        SessionUtils.getInstance().checkSameUser2(loginUser, getWriterId());
         return true;
     }
 

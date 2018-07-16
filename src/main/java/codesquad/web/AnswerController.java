@@ -35,13 +35,13 @@ public class AnswerController {
         return "redirect:/questions/" + questionId;
     }
 
-    @Transactional
-    @DeleteMapping("/{id}")
-    public String delete(@PathVariable Long questionId, @PathVariable Long id, HttpSession session, Answer target) {
-        // answer의 deleted 를 true로
-        Answer answer = answerRepository.findById(target.getId()).orElseThrow(NullPointerException::new);
-        utils.checkLogin(session);
-        answer.delete(utils.getUserFromSession(session));
-        return "redirect:/questions/" + questionId;
-    }
+//    @Transactional
+//    @DeleteMapping("/{id}")
+//    public String delete(@PathVariable Long questionId, @PathVariable Long id, HttpSession session, Answer target) {
+//        // answer의 deleted 를 true로
+//        Answer answer = answerRepository.findById(target.getId()).orElseThrow(NullPointerException::new);
+//        utils.checkLogin(session);
+//        answer.delete(utils.getUserFromSession(session));
+//        return "redirect:/questions/" + questionId;
+//    }
 }

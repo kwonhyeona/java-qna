@@ -2,17 +2,17 @@ package codesquad.domain.result;
 
 import codesquad.domain.Answer;
 
-public class Result {
+public class AnswerResult {
     private String message;
     private Answer answer;
 
-    public Result ok(Answer answer) {
+    public AnswerResult ok(Answer answer) {
         this.message = "ok";
         this.answer = answer;
         return this;
-}
+    }
 
-    public Result fail(String message) {
+    public AnswerResult fail(String message) {
         this.message = message;
         return this;
     }

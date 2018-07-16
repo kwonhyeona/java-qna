@@ -43,10 +43,10 @@
 
                 <div class="qna-comment">
                     <div class="qna-comment-slipp">
-                        <p class="qna-comment-count"><strong>{{answerNum}}</strong>개의 의견</p>
+                        <p id="comment-count" class="qna-comment-count"><strong>{{answerNum}}</strong>개의 의견</p>
                         <div class="qna-comment-slipp-articles" id="answer-container">
                             {{#answers}}
-                            <article class="article" id="answer-1405">
+                            <article class="article" id="answer-{{id}}">
                                 <div class="article-header">
                                     <div class="article-header-thumb">
                                         <img src="https://graph.facebook.com/v2.3/1324855987/picture" class="article-author-thumb" alt="">
@@ -67,9 +67,9 @@
                                             <a class="link-modify-article" href="/questions/413/answers/1405/form">수정</a>
                                         </li>
                                         <li>
-                                            <form class="delete-answer-form" action="/questions/{{question.id}}/answers/{{id}}" method="POST">
+                                            <form class="delete-answer-form" action="/api/questions/{{question.id}}/answers/{{id}}" method="POST">
                                                 <input type="hidden" name="_method" value="DELETE">
-                                                <button type="button" class="delete-answer-button" value="{{id}}/{{question.id}}">삭제</button>
+                                                <button type="button" class="delete-answer-button" onclick="deleteAnswerHandler(this);" value="{{id}}/{{question.id}}">삭제</button>
                                             </form>
                                         </li>
                                     </ul>
@@ -77,7 +77,7 @@
                             </article>
                             {{/answers}}
                         </div>
-                        <form class="submit-write" method="post" action="/questions/{{id}}/answers">
+                        <form class="submit-write answer" data-id="{{id}}" method="post" action="/questions/{{id}}/answers">
                             <div class="form-group" style="padding:14px;">
                                 <textarea class="form-control" id="answer-content" name="contents" placeholder="Update your status"></textarea>
                             </div>

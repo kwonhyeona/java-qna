@@ -27,7 +27,7 @@ public class Question {
     private String contents;
     @Column(nullable = false)
     private String time;
-    @Column
+    @Column(nullable = false)
     private boolean deleted;
 
     @OneToMany(mappedBy = "question")
@@ -86,7 +86,7 @@ public class Question {
         this.time = DateUtils.getCurrentTime();
     }
 
-    public void updateTime(String time) {
+    public void updateTime(String date) {
         this.time = time;
     }
 
