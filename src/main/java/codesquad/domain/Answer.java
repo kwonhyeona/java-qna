@@ -93,13 +93,9 @@ public class Answer {
     }
 
     // TODO getWriterId() 가 질문을 쓴 사람과 아이디가 같으면 삭제, 아니면 냅두기
+
     public void delete(User loginUser) {
         if(!isDeletable(loginUser)) return;
-        delete();
-    }
-
-    public void delete2(User loginUser) {
-        if(!isDeletable2(loginUser)) return;
         delete();
     }
 
@@ -108,12 +104,7 @@ public class Answer {
     }
 
     public boolean isDeletable(User loginUser) {
-        SessionUtils.getInstance().checkSameUser(loginUser, getWriterId());
-        return true;
-    }
-
-    public boolean isDeletable2(User loginUser) {
-        SessionUtils.getInstance().checkSameUser2(loginUser, getWriterId());
+        SessionUtils.getInstance().checkSameUserFromApi(loginUser, getWriterId());
         return true;
     }
 

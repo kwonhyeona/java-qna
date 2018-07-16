@@ -37,7 +37,7 @@ public class SessionUtils {
         }
     }
 
-    public void checkSameUser2(User loginUser, Long id) throws ApiException {
+    public void checkSameUserFromApi(User loginUser, Long id) throws ApiException {
         if(!loginUser.isSameId(id)) {
             throw new ApiException();
         }
@@ -48,7 +48,7 @@ public class SessionUtils {
             throw new UnidentifiedUserException();
         }
     }
-    public void checkLogin2(HttpSession session) throws ApiException {
+    public void checkLoginFromApi(HttpSession session) throws ApiException {
         if (getUserFromSession(session) == null) {
             throw new ApiException();
         }

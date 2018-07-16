@@ -68,8 +68,12 @@ function appendAnswer({message, answer}) {
     countElement.firstElementChild.innerHTML = Number(countElement.firstElementChild.innerHTML) + 1;
 }
 
-function deleteAnswer(result) {
-    var article = document.getElementById('answer-' + result.answer.id);
+function deleteAnswer({message, answer}) {
+    if (message !== "ok") {
+        alert(message);
+        return;
+    }
+    var article = document.getElementById('answer-' + answer.id);
     var countElement = document.getElementById('comment-count');
     countElement.firstElementChild.innerHTML = Number(countElement.firstElementChild.innerHTML) - 1;
     article.parentNode.removeChild(article);
@@ -78,7 +82,6 @@ function deleteAnswer(result) {
 function createAnswerHandler(evt) {
     evt.preventDefault();
     const content = $("#answer-content").value;
-    console.log("내용", content);
     $("#answer-content").value = "";
 
     fetchManager({
@@ -110,13 +113,11 @@ function initEvents() {
     answerCreateBtn.addEventListener("click", function (e) {
         if( e.target && e.target.nodeName == 'BUTTON' ) {
             e.preventDefault();
-            console.log(e.target);
             createAnswerHandler(e);
         }
     });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-console.log('DOMContentLoaded');
     initEvents();
 })

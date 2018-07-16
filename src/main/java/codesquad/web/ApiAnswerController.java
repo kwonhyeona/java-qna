@@ -21,7 +21,7 @@ public class ApiAnswerController {
 
     @PostMapping("/questions/{questionId}/answers")
     public AnswerResult create(@PathVariable Long questionId, @RequestBody Answer target, HttpSession session) {
-        utils.checkLogin2(session);
+        utils.checkLoginFromApi(session);
         User user = utils.getUserFromSession(session);
         Question question = questionRepository.findById(questionId).orElseThrow(NullPointerException::new);
         Answer answer = new Answer(user, target.getContents());
@@ -36,9 +36,9 @@ public class ApiAnswerController {
     @DeleteMapping("/questions/{questionId}/answers/{id}")
     public AnswerResult delete(@PathVariable Long questionId, @PathVariable Long id, HttpSession session) {
         // answer의 deleted 를 true로
-        utils.checkLogin2(session);
+        utils.checkLoginFromApi(session);
         Answer answer = answerRepository.findById(id).orElseThrow(NullPointerException::new);
-        answer.delete2(utils.getUserFromSession(session));
+        answer.delete(utils.getUserFromSession(session));
         answerRepository.save(answer);
         return new AnswerResult().ok(answer);
     }
